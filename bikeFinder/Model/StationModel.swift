@@ -6,3 +6,9 @@
 //
 
 import Foundation
+
+class StationModel: Codable {
+    var name: String
+    var bikesNumber: Int
+    var freePlacesNumber: Int
+}
