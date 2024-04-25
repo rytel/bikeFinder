@@ -9,24 +9,30 @@ import UIKit
 
 class StationCell: UITableViewCell {
     static let identifier: String = "StationCellIdentifier"
-    
-    @IBOutlet weak var customBackgroundView: UIView!
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var range: UILabel!
-    @IBOutlet weak var address: UILabel!
-    @IBOutlet weak var bikesNumber: UILabel!
-    @IBOutlet weak var placesNumber: UILabel!
+    var stationView: StationInfoView?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-//        customBackgroundView.layer.borderWidth = 0.0
-        customBackgroundView.layer.cornerRadius = 10
-//        customBackgroundView.layer.borderColor = UIColor.black.cgColor
+        stationView = createStationView()
     }
     
     func setValues(stationModel: StationModel) {
-        self.name.text = stationModel.name
-        self.bikesNumber.text = String( stationModel.bikesNumber)
-        self.placesNumber.text = String(stationModel.freePlacesNumber)
+        stationView?.setValues(stationModel: stationModel)
+    }
+}
+
+
+//MARK: UI
+fileprivate extension StationCell {
+    func createStationView() -> StationInfoView {
+        let stationView = StationInfoView(nibName: "StationInfoView", bundle: nil)
+        stationView.view.layer.cornerRadius = 10
+        contentView.addSubview(stationView.view)
+        stationView.view.translatesAutoresizingMaskIntoConstraints = false
+        stationView.view.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8).isActive = true
+        stationView.view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8).isActive = true
+        stationView.view.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16).isActive = true
+        stationView.view.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16).isActive = true
+        return stationView
     }
 }

@@ -6,38 +6,63 @@
 //
 
 import UIKit
+import CoreData
 
 class ViewController: UIViewController {
-
-    var models: [ApiStationInformation] = []
+    var model: [StationModel] = []
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.register(
-            UINib(nibName: "StationCell", bundle: nil),
-            forCellReuseIdentifier: StationCell.identifier
-        )
-        self.navigationController?.navigationBar.backgroundColor = .systemIndigo
+        Task {
+            model = await CoreDataManager.fetchDataFromServer()
+            tableView.reloadData()
+        }
+        tableViewConfig()
+        setNavBar()
     }
 }
 
+fileprivate extension ViewController {
+    func tableViewConfig() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(
+            UINib(nibName: "StationCell", bundle: nil),
+            forCellReuseIdentifier: StationCell.identifier
+        )
+    }
+}
+
+//MARK: table view delegate/datasource
 extension ViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3 //models.count
+        model.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: StationCell.identifier, for: indexPath) as? StationCell else {
+            print("Cell reuse failure")
             return UITableViewCell()
         }
-        cell.name.text = "plac asd"
-        cell.bikesNumber.text = "1"
-        cell.placesNumber.text = "2"
+        cell.setValues(stationModel: model[indexPath.row])
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let vc = MapViewController(stationModel: model[indexPath.row])
+        vc.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+//MARK: UI
+fileprivate extension ViewController {
+    func setNavBar() {
+        navigationItem.title = ""
+        navigationController?.navigationBar.tintColor = .white
     }
 }

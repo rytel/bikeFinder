@@ -6,18 +6,42 @@
 //
 
 import Foundation
+import CoreData
 
 class CoreDataManager {
-    static func fetchDataFromServer() async {
+    static let shared = CoreDataManager()
+    
+    let persistentContainer: NSPersistentContainer = {
+        let container = NSPersistentContainer(name: "bikeFinder")
+        container.loadPersistentStores { (storeDescription, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        }
+        return container
+    }()
+    
+    static func fetchDataFromServer() async -> [StationModel] {
         let connector = ApiConnector()
-        
         do {
             let stationInfo = try await connector.fetchStationInformation()
             let statuses = try await connector.fetchStationStatuses()
-            //check is db updated
-            let context = await AppDelegate().persistentContainer.viewContext
-
-            try stationInfo.data.stations.forEach { station in
+            let stations = stationInfo.data.stations.map { station in
+                var station = station
+                station.status = statuses.data.stations.first(where: { $0.stationId == station.station_id})
+                return station
+            }
+            return stations
+        } catch {
+            print(error)
+            return []
+        }
+    }
+    
+    static func fetchAndSaveDataFromServer() async {        
+        do {
+            try await fetchDataFromServer().forEach { station in
+                let context = shared.persistentContainer.viewContext
                 let newObject = Station(context: context)
                 newObject.id = station.station_id
                 newObject.name = station.name
@@ -26,17 +50,12 @@ class CoreDataManager {
                 newObject.longitude = station.lon
                 
                 newObject.status = Status(context: context)
-                
-                let statusModel = statuses.data.stations.first(where: { status in
-                    status.stationId == station.station_id
-                })
-                
-//                newObject.status?.bikeNumber = Int64(1)
-//                newObject.status?.dockNumber = Int64(2)
+                newObject.status?.bikeNumber = Int64(station.status!.bikeCount)
+                newObject.status?.dockNumber = Int64(station.status!.dockCount)
                 try context.save()
             }
         } catch {
-            print("synchronization error: \(error)")
+            print(error)
         }
     }
 }

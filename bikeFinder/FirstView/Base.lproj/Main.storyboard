@@ -17,24 +17,24 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UYP-BP-dVX">
-                                <rect key="frame" x="0.0" y="59" width="393" height="793"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="749"/>
                                 <color key="backgroundColor" name="tableviewBackground"/>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="qLO-44-mpp">
-                                <rect key="frame" x="0.0" y="71" width="393" height="781"/>
+                                <rect key="frame" x="0.0" y="103" width="393" height="749"/>
                                 <color key="backgroundColor" name="tableviewBackground"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="4" maxX="0.0" maxY="0.0"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" name="customDark"/>
+                        <color key="backgroundColor" name="navbarBackground"/>
                         <constraints>
                             <constraint firstItem="UYP-BP-dVX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="DOl-na-Jyu"/>
                             <constraint firstAttribute="bottom" secondItem="qLO-44-mpp" secondAttribute="bottom" id="QWf-nD-ROd"/>
                             <constraint firstItem="UYP-BP-dVX" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Uvr-6d-mea"/>
                             <constraint firstAttribute="trailing" secondItem="qLO-44-mpp" secondAttribute="trailing" id="aJr-UA-awZ"/>
-                            <constraint firstItem="qLO-44-mpp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="12" id="eX3-Hz-sLu"/>
+                            <constraint firstItem="qLO-44-mpp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="eX3-Hz-sLu"/>
                             <constraint firstAttribute="bottom" secondItem="UYP-BP-dVX" secondAttribute="bottom" id="fDm-kH-RNs"/>
                             <constraint firstItem="UYP-BP-dVX" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="gMK-F1-eg6"/>
                             <constraint firstItem="qLO-44-mpp" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="z25-OA-Ndm"/>
@@ -47,14 +47,16 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1052.6717557251909" y="-27.464788732394368"/>
+            <point key="canvasLocation" x="1052.1126760563382" y="-28.244274809160306"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="UZL-i7-2vS">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Dog-LN-XLk" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Dog-LN-XLk" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="mEb-18-WV1">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mEb-18-WV1">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.14117647058823529" green="0.13333333333333333" blue="0.2196078431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
@@ -72,7 +74,7 @@
         </scene>
     </scenes>
     <resources>
-        <namedColor name="customDark">
+        <namedColor name="navbarBackground">
             <color red="0.14117647059999999" green="0.1333333333" blue="0.21960784310000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="tableviewBackground">

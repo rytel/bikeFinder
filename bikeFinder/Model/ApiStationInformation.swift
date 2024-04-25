@@ -7,6 +7,14 @@
 
 import Foundation
 
-class ApiStationInformation: Decodable {
+struct ApiStationInformation: Decodable {
+//    var lastUpdated: String
+//    var ttl: Int
+//    var version: String
+    var data: ApiData
     
+    struct ApiData: Decodable {
+    var stations: [StationModel]
+    }
 }
+

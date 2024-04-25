@@ -7,8 +7,11 @@
 
 import Foundation
 
-class StationModel: Codable {
+struct StationModel: Decodable {
+    var station_id: String
     var name: String
-    var bikesNumber: Int
-    var freePlacesNumber: Int
+    var address: String
+    var lat: Float
+    var lon: Float
+    var status: StationStatusModel?
 }
