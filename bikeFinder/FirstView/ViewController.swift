@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         Task {
-            model = await CoreDataManager.fetchDataFromServer()
+            model = await DataManager.fetchDataFromServer()
             tableView.reloadData()
         }
         tableViewConfig()

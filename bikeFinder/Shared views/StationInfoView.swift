@@ -19,7 +19,6 @@ class StationInfoView: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         customBackgroundView.layer.cornerRadius = 10
-        // Do any additional setup after loading the view.
     }
 
     func setValues(stationModel: StationModel) {

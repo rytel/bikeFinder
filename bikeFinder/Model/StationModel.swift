@@ -11,7 +11,7 @@ struct StationModel: Decodable {
     var station_id: String
     var name: String
     var address: String
-    var lat: Float
-    var lon: Float
+    var lat: Double
+    var lon: Double
     var status: StationStatusModel?
 }

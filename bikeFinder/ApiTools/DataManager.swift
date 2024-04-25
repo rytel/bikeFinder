@@ -1,5 +1,5 @@
 //
-//  CoreDataManager.swift
+//  DataManager.swift
 //  bikeFinder
 //
 //  Created by Rafał Rytel on 24/04/2024.
@@ -8,8 +8,8 @@
 import Foundation
 import CoreData
 
-class CoreDataManager {
-    static let shared = CoreDataManager()
+class DataManager {
+    static let shared = DataManager()
     
     let persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "bikeFinder")
@@ -28,7 +28,7 @@ class CoreDataManager {
             let statuses = try await connector.fetchStationStatuses()
             let stations = stationInfo.data.stations.map { station in
                 var station = station
-                station.status = statuses.data.stations.first(where: { $0.stationId == station.station_id})
+                station.status = statuses.data.stations.first(where: { $0.stationId == station.station_id })
                 return station
             }
             return stations
@@ -38,7 +38,7 @@ class CoreDataManager {
         }
     }
     
-    static func fetchAndSaveDataFromServer() async {        
+    static func fetchAndSaveDataFromServer() async {
         do {
             try await fetchDataFromServer().forEach { station in
                 let context = shared.persistentContainer.viewContext
